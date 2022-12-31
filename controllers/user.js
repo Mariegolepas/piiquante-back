@@ -31,7 +31,7 @@ exports.login = (req, res, next) => {
                         userId: user._id,
                         token: jwt.sign(
                             {userId: user._id},
-                            'AVEOAKDEZAOKDAOKFENIANDSKDNEZIANFFNEZIZSDKANFDEI', //Token
+                            'AVEOA-KDEZA_OKDAOK-FENI(ANDSKDNEZIANFFNEZIZSDKANFDEI', //Token
                             {expiresIn: '24h'}
                         )
                     });
