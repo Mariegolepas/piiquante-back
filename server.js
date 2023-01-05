@@ -1,4 +1,4 @@
-const https = require('https');
+const http = require('http');
 const app = require('./app');
 
 const normalizePort = val => {
@@ -14,7 +14,7 @@ const normalizePort = val => {
 }
 
 const port = normalizePort(process.env.PORT || 3000);
-const server = https.createServer(app);
+const server = http.createServer(app);
 
 app.set('port', port);
 
