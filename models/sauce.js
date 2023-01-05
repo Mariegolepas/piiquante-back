@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongodbErrorHandler = require('mongoose-mongodb-errors');
 
 /**
  * We create the schema of data we want to catch for our database
@@ -16,6 +17,8 @@ const sauceSchema = mongoose.Schema({
     usersLiked : [{type: String, required: true}],
     usersDisliked : [{type: String, required: true}],
 });
+
+sauceSchema.plugin(mongodbErrorHandler);
 
 /**
  * We change those schemas in usable models
