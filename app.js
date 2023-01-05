@@ -1,9 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config()
+const helmet = require('helmet');
+const path = require('path');
 const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
-const path = require('path');
+
+require('dotenv').config();
 
 mongoose.connect(`mongodb+srv://${process.env.MONGOSE_PASSWORD}/Piiquante?retryWrites=true&w=majority`,
     { useNewUrlParser: true,
@@ -14,7 +16,8 @@ mongoose.connect(`mongodb+srv://${process.env.MONGOSE_PASSWORD}/Piiquante?retryW
 mongoose.set('strictQuery', false);
 
 const app = express();
-app.use(express.json()); //accès au corps de la requête
+app.use(express.json()); //access to our request body
+app.use(helmet.xssFilter()); //add helmet protection for Cross Sites Scripting issues
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
