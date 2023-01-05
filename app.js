@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config()
 const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
 const path = require('path');
 
-mongoose.connect('mongodb+srv://adminuser:736HzJemjj2NbV@cluster0.jmmxck8.mongodb.net/Piiquante?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://${process.env.MONGOSE_PASSWORD}/Piiquante?retryWrites=true&w=majority`,
     { useNewUrlParser: true,
     useUnifiedTopology: true })
     .then(() => console.log('Connexion à MongoDB réussie !'))
