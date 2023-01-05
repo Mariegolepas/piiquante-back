@@ -18,6 +18,6 @@ const sauceSchema = mongoose.Schema({
 });
 
 /**
- * We change this schema in a usable model
+ * We change those schemas in usable models
  */
 module.exports = mongoose.model('Sauce', sauceSchema);

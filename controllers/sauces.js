@@ -1,4 +1,5 @@
 const Sauce = require('../models/sauce');
+const Like = require('../models/like');
 const fs = require ('fs');
 
 exports.createSauce = (req, res, next) => {
@@ -65,4 +66,17 @@ exports.getAllSauces = (req, res, next) => {
   Sauce.find()
   .then(sauces => res.status(200).json(sauces))
   .catch(error => res.status(400).json({error}));
+};
+
+exports.likeSauce = (req, res, next) => {
+  const sauceLike = JSON.parse(req.body.likes);
+  const like = new Like({
+    ...sauceLike,
+    userId: req.auth.userId,
+    like: 0
+  });
+
+  like.save()
+    .then(() => res.status(201).json({message: 'Sauce liked !'}))
+    .catch(error => res.status(400).json({error}));
 };
