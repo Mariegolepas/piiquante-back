@@ -1,6 +1,12 @@
 const Sauce = require('../models/sauce');
 const fs = require ('fs');
 
+/**
+ * Controllers which permit to create and save a new sauce
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject.userId;
@@ -17,12 +23,24 @@ exports.createSauce = (req, res, next) => {
   .catch(error => res.status(400).json({error}));
 };
 
+/**
+ * Controller to get only a sauce, based on the one we clicked on on the index page
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({_id: req.params.id})
   .then(sauce => res.status(200).json(sauce))
   .catch(error => res.status(404).json({error}));
 };
 
+/**
+ * Controller to be able for the creator of the sauce to modify it
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.modifySauce = (req, res, next) => {
   const sauceObject = req.file ? {
     ...JSON.parse(req.body.sauce),
@@ -51,6 +69,12 @@ exports.modifySauce = (req, res, next) => {
   .catch(error => res.status(400).json({error}));
 };
 
+/**
+ * Controller which permit to the creator of the sauce to delete it from the API
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({_id: req.params.id})
   .then(sauce => {
@@ -68,12 +92,24 @@ exports.deleteSauce = (req, res, next) => {
   .catch(error => res.status(500).json({error}));
 };
 
+/**
+ * Controller which permit to get all sauces displayed on the index page
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.getAllSauces = (req, res, next) => {
   Sauce.find()
   .then(sauces => res.status(200).json(sauces))
   .catch(error => res.status(500).json({error}));
 };
 
+/**
+ * Controller which permit to like, dislike or unlike/undislike any sauces on the API
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.likeSauce = (req, res, next) => {
   Sauce.findOne({_id: req.params.id})
     .then(sauce => {

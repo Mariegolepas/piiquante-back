@@ -3,6 +3,14 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passwordValidate = require('../middleware/password-validator');
 
+/**
+ * Controller to signup into our API
+ * With a Password Validator to securise access to API
+ * With an hash system to securise our datas (passwords)
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.signup = (req, res, next) => {
     if (passwordValidate.validate(req.body.password)) {
         bcrypt.hash(req.body.password, 10)
@@ -17,11 +25,19 @@ exports.signup = (req, res, next) => {
         })
         .catch(error => res.status(500).json({error}));
     } else {
-        res.status(400).json({message: "Merci d'utiliser un mot de passe contenant au minimum 2 chiffres, des majuscules et des minuscules et au minimum 8 caractères."});
+        res.status(400).json({message: "Merci d'utiliser un mot de passe contenant au minimum 2 chiffres, des majuscules, des minuscules et au minimum 8 caractères."});
     }
     
 };
 
+/**
+ * Controller to log into our API
+ * Permit to compare our hash information with the one given
+ * Give a 24h token to our user to permit him to do whatever needed for on the API (modify, create, delete & like/dislike)
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.login = (req, res, next) => {
     debugger;
     User.findOne({email: req.body.email})

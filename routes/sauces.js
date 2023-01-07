@@ -5,6 +5,9 @@ const multer = require('../middleware/multer-config');
 
 const router = express.Router();
 
+/**
+ * Our routes for the CRUD on our API
+ */
 router.get('/', auth, saucesCtrl.getAllSauces);
 router.post('/', auth, multer, saucesCtrl.createSauce);
 router.get('/:id', auth, saucesCtrl.getOneSauce);
