@@ -39,7 +39,6 @@ exports.signup = (req, res, next) => {
  * @param {*} next 
  */
 exports.login = (req, res, next) => {
-    debugger;
     User.findOne({email: req.body.email})
     .then(user => {
         if (user === null) {
